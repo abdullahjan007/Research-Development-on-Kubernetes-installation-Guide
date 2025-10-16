@@ -123,27 +123,27 @@ lekin ye har node (control-plane ya worker) ko ek Docker container ke form me ru
 
 Tumhara setup:
 
-cka-lab-prep-control-plane  → ek container (master)
-cka-lab-prep-worker         → ek container (worker1)
-cka-lab-prep-worker2        → ek container (worker2)
+cka-lab-prep-control-plane  → ek container (master)<br></br>
+cka-lab-prep-worker         → ek container (worker1)<br></br>
+cka-lab-prep-worker2        → ek container (worker2)<br></br>
 
 
-Yani, ye teeno “virtual machines” nahi hain — ye Docker containers hain,
-jo apas me Docker’s virtual network bridge ke through connected hain.
+Yani, ye teeno “virtual machines” nahi hain — ye Docker containers hain,<br></br>
+jo apas me Docker’s virtual network bridge ke through connected hain.<br></br>
 
 🧠 3. Inside the Control Plane Container
 
 Control-plane container ke andar ye processes chal rahe hote hain (as separate pods):
 
-Component	Role
-kube-apiserver	API endpoint (kubectl yahan connect karta hai)
-etcd	Key-Value store (Kubernetes ka database)
-kube-scheduler	Pods ko nodes par assign karta hai
-kube-controller-manager	Cluster state manage karta hai
-kubelet	Node-level agent
-kube-proxy	Networking component
+Component	Role<br></br>
+kube-apiserver	API endpoint (kubectl yahan connect karta hai)<br></br>
+etcd	Key-Value store (Kubernetes ka database)<br></br>
+kube-scheduler	Pods ko nodes par assign karta hai<br></br>
+kube-controller-manager	Cluster state manage karta hai<br></br>
+kubelet	Node-level agent<br></br>
+kube-proxy	Networking component<br></br>
 
-Yani, ye container tumhara “master node” ban gaya.
+Yani, ye container tumhara “master node” ban gaya.<br></br>
 
 🔗 4. Worker Containers ka role
 
@@ -177,12 +177,12 @@ etcd (cluster state)
 Response: List of Nodes (control-plane + 2 workers)
 
 
-So everything you do (kubectl apply, create, get pods)
+So everything you do (kubectl apply, create, get pods)<br></br>
 actually goes through kube-apiserver inside that container.
 
 💾 6. Where Cluster Data Lives
 
-All cluster state (pods, deployments, services, secrets, etc.)
+All cluster state (pods, deployments, services, secrets, etc.)<br></br>
 stored inside etcd, which lives at:
 
 /var/lib/etcd/member
@@ -201,19 +201,19 @@ you literally backed up the entire cluster database as a file.
 
 Kind ke control-plane me /etc/kubernetes/manifests/ me .yaml files hoti hain:
 
-etcd.yaml
-kube-apiserver.yaml
-kube-scheduler.yaml
+etcd.yaml<br></br>
+kube-apiserver.yaml<br></br>
+kube-scheduler.yaml<br></br>
 kube-controller-manager.yaml
 
 
-Ye “static pod manifests” hain.
-kubelet inhe dekhta hai aur automatically start karta hai.
+Ye “static pod manifests” hain.<br></br>
+kubelet inhe dekhta hai aur automatically start karta hai.<br></br>
 Agar file me koi change karo → pod restart ho jaata hai (Kind me systemctl nahi chalta).
 
 🧰 8. Why Kubectl Works Everywhere
 
-kubectl tumhare Ubuntu system me installed hai,
+kubectl tumhare Ubuntu system me installed hai,<br></br>
 aur iska config file ye hota hai:
 
 ~/.kube/config
@@ -224,10 +224,10 @@ Jisme kind ne automatically context add kar diya:
 kind-cka-lab-prep → https://127.0.0.1:port
 
 
-kubectl us endpoint par API requests bhejta hai,
+kubectl us endpoint par API requests bhejta hai,<br></br>
 jo Docker network ke andar control-plane container ke kube-apiserver par forward hota hai.
 
-🚀 9. Whole Architecture Overview (Diagram Mental Model)
+🚀 9. Whole Architecture Overview (Diagram Mental Model)<br></br>
 +------------------------------------------------------+
 | Windows 11                                           |
 |   └── Docker Desktop                                 |
@@ -257,6 +257,6 @@ Static pod manifests in /etc/kubernetes/manifests
 
 Works with all kubectl and etcdctl commands
 
-Only difference: sab kuch Docker containers ke andar ho raha hai,
+Only difference: sab kuch Docker containers ke andar ho raha hai,<br></br>
 VMs ke andar nahi — that’s why it’s lightweight & fast ⚡
  
