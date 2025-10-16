@@ -84,10 +84,10 @@ apt install -y etcd-client
  
 etcdctl version
 
-export ETCDCTL_API=3
-export ETCDCTL_CACERT="/etc/kubernetes/pki/etcd/ca.crt"
-export ETCDCTL_CERT="/etc/kubernetes/pki/etcd/server.crt"
-export ETCDCTL_KEY="/etc/kubernetes/pki/etcd/server.key"
+export ETCDCTL_API=3<br></br>
+export ETCDCTL_CACERT="/etc/kubernetes/pki/etcd/ca.crt"<br></br>
+export ETCDCTL_CERT="/etc/kubernetes/pki/etcd/server.crt"<br></br>
+export ETCDCTL_KEY="/etc/kubernetes/pki/etcd/server.key"<br></br>
  
 etcdctl snapshot save /var/lib/etcd/snapshot.db
  
